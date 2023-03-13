@@ -12,6 +12,15 @@ CLI for automatic XCTest generation using ChatGPT
 [![Github top language](https://img.shields.io/github/languages/top/NakaokaRei/XCTestGen)](https://github.com/NakaokaRei/XCTestGen/)
 [![Github license](https://img.shields.io/github/license/NakaokaRei/XCTestGen)](https://github.com/NakaokaRei/XCTestGen/)
 
+# Installation
+Execute the following command from above.
+```
+$ git clone git@github.com:NakaokaRei/XCTestGen.git
+$ cd XCTestGen
+$ swift build -c release
+$ cp .build/release/XCTestGen /usr/local/bin/XCTestGen
+```
+
 # Usage
 Executing the command with the path of the input file and the path of the destination folder will save the unit test code in the destination folder.
 
