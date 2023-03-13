@@ -24,10 +24,59 @@ $ cp .build/release/XCTestGen /usr/local/bin/XCTestGen
 # Usage
 Executing the command with the path of the input file and the path of the destination folder will save the unit test code in the destination folder.
 
-e.g. If `SampleProcessor.swift` is input, `SampleProcessorTests.swift` will be created in the output destination.
 ```
 $ XCTestGen $OPENAI_KEY "input file path" "output dir path"
 ```
+
+e.g. If `Sample.swift` is input, `SampleTests.swift` will be created in the output destination.
+
+```swift
+// Sample.swift
+class Sample {
+    func sample1(x: Int) -> Int {
+        return x + 1
+    }
+
+    func sample2(x: String) -> String {
+        return x + "sample"
+    }
+}
+```
+
+```swift
+// SampleTests.swift
+import XCTest
+
+class SampleTests: XCTestCase {
+
+    func test_sample1() {
+        // given
+        let expectedResult = 11
+        let sampleInput = 10
+        let sut = Sample()
+
+        // when
+        let result = sut.sample1(x: sampleInput)
+
+        // then
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func test_sample2() {
+        // given
+        let expectedResult = "testsample"
+        let sampleInput = "test"
+        let sut = Sample()
+
+        // when
+        let result = sut.sample2(x: sampleInput)
+
+        // then
+        XCTAssertEqual(result, expectedResult)
+    }
+}
+```
+
 
 # Help
 ```
