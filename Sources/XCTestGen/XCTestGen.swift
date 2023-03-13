@@ -24,17 +24,28 @@ struct XCTestGen: AsyncParsableCommand {
 
     func generateXCTest() async throws {
         let order = "Please write a unit test (XCTest) of the following Swift code. No explanatory text is required as we would like to save your output as source code as is."
-        let code = try FileManager.readTextFile(atPath: input)
+        let code: String
+
+        do {
+            code = try FileManager.readTextFile(atPath: input)
+        } catch {
+            throw XCTestGenError.readCodeError
+        }
+
         let prompt = order + "\n\n" + code
 
         let openAI = OpenAISwift(authToken: key)
         let result = try await openAI.sendCompletion(with: prompt, maxTokens: maxTokens)
 
         guard let testCode = result.choices.first?.text else {
-            return
+            throw XCTestGenError.chatgptResultError
         }
 
-        try FileManager.saveTextFile(text: testCode, atPath: output)
+        do {
+            try FileManager.saveTextFile(text: testCode, atPath: output)
+        } catch {
+            throw XCTestGenError.saveFileError
+        }
     }
 
     mutating func run() async throws {
@@ -42,7 +53,11 @@ struct XCTestGen: AsyncParsableCommand {
             try await generateXCTest()
             print("Generated to " + output)
         } catch {
-            print("error")
+            if let xcTestError = error as? XCTestGenError {
+                print(xcTestError.description)
+            } else {
+                print("Some Error")
+            }
         }
     }
 }
