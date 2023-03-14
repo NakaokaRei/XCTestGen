@@ -3,9 +3,9 @@
 <!-- # Short Description -->
 
 CLI for automatic XCTest generation using OpenAI API.
-If you want to use this CLI, please obtain an OpenAI API Key.
+If you want to use this CLI, please obtain an OpenAI API Key. You can create at [here](https://platform.openai.com/account/api-keys).
 
-You can create at [here](https://platform.openai.com/account/api-keys)
+This project uses [OpenAISwift](https://github.com/adamrushy/OpenAISwift) for the OpenAI API.
 
 <!-- # Badges -->
 
